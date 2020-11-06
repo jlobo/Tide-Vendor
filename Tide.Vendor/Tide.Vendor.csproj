@@ -17,7 +17,10 @@
 
 
   <!-- START SPA -->
-
+  <PropertyGroup>
+    <SpaRoot>Client\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+  </PropertyGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build">
     <!-- Build Target:  Ensure Node.js is installed -->

@@ -26,6 +26,7 @@ export default {
                 serverUrl: process.env.VUE_APP_SERVER_URL,
                 chosenOrk: process.env.VUE_APP_CHOSEN_ORK,
                 vendorPublic: process.env.VUE_APP_VENDOR_PUBLIC,
+                orks: this.assembleOrks(),
             },
         };
     },
@@ -38,8 +39,24 @@ export default {
             this.jwt = resp.headers["authorization"];
         });
         Tide.init(this.config);
+        console.log(this.config);
     },
     methods: {
+        assembleOrks() {
+            var orks = [];
+            for (let i = 0; i < 3; i++) {
+                orks.push({
+                    id: i,
+                    // url: `https://pdork${i + 1}.azurewebsites.net`,
+                    url: `https://dork${i + 1}.azurewebsites.net`,
+                    //url: `https://ork-${i + 1}.azurewebsites.net`,
+                    // url: `http://localhost:500${i + 1}`,
+                    cmk: false,
+                    cvk: false,
+                });
+            }
+            return orks;
+        },
         async getProtected() {
             try {
                 this.error = false;
