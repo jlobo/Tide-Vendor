@@ -32,6 +32,13 @@ namespace Tide.Vendor
             services.AddSpaStaticFiles(opt => opt.RootPath = "Client/dist");
 
             services.AddControllers();
+
+            // Reset seed data
+            //using (var db = new VendorContext())
+            //{
+            //    db.RemoveRange(db.Users);
+            //    db.SaveChanges();
+            //}
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserService userService)

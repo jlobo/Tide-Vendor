@@ -14,10 +14,17 @@ namespace Tide.Vendor.Classes {
         // Never store sensitive information in the clear like this. This is done for simplicity of the demo
         private const string Bearer = "v3DpAiBzk7sq3EAfn#3^Tj2oH4memXBc!#L@Sjb%l5wI%H#Y#YkNDPtpqErKQ&O7iU";
 
+      
         public void HandleTideAuthenticationResult(HttpContext context, AuthRequest authRequest) {
-            if (!authRequest.Success) context.Response.StatusCode = 401;
+            context.Response.Headers.Add("Access-Control-Expose-Headers", "*");
+            if (!authRequest.Success) {
+
+                context.Response.StatusCode = 401;
+
+                context.Response.Headers["Error"] = authRequest.Error;
+            }
             else {
-                context.Response.Headers.Add("Access-Control-Expose-Headers", "*");
+               
                 context.Response.Headers["Authorization"] = LoginOrRegister(authRequest);
             }
         }
