@@ -1,9 +1,12 @@
 <template>
   <div id="home">
-    <h1>THIS IS AN EXAMPLE VENDOR WEBSITE</h1>
-    <h2>PLEASE LOGIN OR REGISTER</h2>
+    <h1 class="website-name">{{ config.vendorName }}</h1>
+
+    <h3>THIS IS AN EXAMPLE VENDOR WEBSITE</h3>
+    <h4>PLEASE LOGIN OR REGISTER</h4>
     <span id="tide"></span>
 
+    <span class="logged-in" v-if="jwt != ''">You have been logged in!</span>
     <button @click="getProtected" id="protected-data-btn">Request Protected Data</button>
     <p :style="{ color: error ? 'red' : 'black' }" v-html="protectedData"></p>
   </div>
@@ -26,6 +29,7 @@ export default {
         serverUrl: process.env.VUE_APP_SERVER_URL,
         chosenOrk: process.env.VUE_APP_CHOSEN_ORK,
         vendorPublic: process.env.VUE_APP_VENDOR_PUBLIC,
+        vendorName: process.env.VUE_APP_VENDOR_NAME,
         orks: this.assembleOrks(),
       },
     };
@@ -48,11 +52,11 @@ export default {
   methods: {
     assembleOrks() {
       var orks = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 5; i++) {
         orks.push({
           id: i,
-          url: `https://pdork${i + 1}.azurewebsites.net`,
-          // url: `https://dork${i + 1}.azurewebsites.net`,
+          //url: `https://pdork${i + 1}.azurewebsites.net`,
+          url: `https://dork${i + 1}.azurewebsites.net`,
           //url: `https://ork-${i + 1}.azurewebsites.net`,
           // url: `http://localhost:500${i + 1}`,
           cmk: false,
@@ -94,6 +98,7 @@ html {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }
 
 #protected-data-btn {
@@ -125,5 +130,15 @@ html {
       transform: rotate(-360deg);
     }
   }
+}
+
+.logged-in {
+  font-weight: bold;
+  margin-top: 20px;
+  color: rgb(91, 204, 91);
+}
+
+.website-name {
+  color: rgb(49, 150, 190);
 }
 </style>
