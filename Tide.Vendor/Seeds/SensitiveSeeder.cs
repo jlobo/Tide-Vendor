@@ -3,7 +3,7 @@ using Tide.Vendor.Models;
 
 namespace Tide.Vendor.Seeds
 {
-    public static class SensitiveInfoSeeder
+    public static class SensitiveSeeder
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -15,7 +15,7 @@ namespace Tide.Vendor.Seeds
                 PublicKey = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5DIkl8PmSn/QDpHCTOYYuk/eAoDXF8gHCyR3ToaOvwTpJQ2Kf0CPAa/VrEl/VJTiWHNdvwNrCLBB98DPXm73"
             };
 
-            modelBuilder.Entity<SensitiveInfo>().HasData(new SensitiveInfo
+            modelBuilder.Entity<Sensitive>().HasData(new Sensitive
             {
                 User = user,
                 DLN = "AYHI8gs0rj12B0JTP8BLgJD1RgiLFK7hOZcNjPXJuP46jXR7+nzEiv09YbE0UXy965ad7PwGVFbrl9Sg2kfSUuxBlBI20dK8P5NKvFks06rPQYJziAoKT0oJbytcibVVroOIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZfqOhaQWK90J2szqHB1EA6Kpe9GQiK+hEgUrM6BoHsAijowh+xDqMGaxL6fMdAYFY4uvTP8JEegOD322OuR1s=",

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tide.Vendor.Models {
-    public class SensitiveInfo {
+    public class Sensitive {
         [Key, ForeignKey("User")]
         public int UserId { get; set; }
         public string DLN { get; set; }
