@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,24 +11,47 @@ namespace Tide.Vendor.Controllers
     [Route("[controller]")]
     public class SensitiveController : Controller
     {
-        private readonly SensitiveService _service;
+        private readonly SensitiveService _sensitiveSrv;
+        private readonly UserService _userSrv;
 
-        public SensitiveController()
+        public SensitiveController(UserService service)
         {
-            _service = new SensitiveService();
+            _sensitiveSrv = new SensitiveService();
+            _userSrv = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<Sensitive>> Get(int id)
+        public Task<ActionResult> Get()
         {
-            var info = await _service.Get(id);
-            return info != null ? Ok(info) :NotFound() as ActionResult;
+            return CheckToken(async usr => {
+                var info = await _sensitiveSrv.Get(usr.Id);
+
+                return info != null ? Ok(info) : NotFound() as ActionResult;
+            });
         }
 
         [HttpPost]
-        public async Task Update(Sensitive info)
+        public Task<ActionResult> Update(Sensitive info)
         {
-            await _service.Update(info);
+            return CheckToken(async usr =>
+            {
+                if (usr.Id != info.UserId)
+                    return Unauthorized("Invalid token");
+                
+                await _sensitiveSrv.Update(info);
+                return Ok();
+            });
+        }
+
+        private async Task<ActionResult> CheckToken(Func<User, Task<ActionResult>> fun)
+        {
+            var token = Request.Headers["Authorization"];
+            if (!_userSrv.ValidateVendorToken(token, out var claims)) return Unauthorized("Invalid token");
+
+            var userid = Convert.ToInt32(claims.First(c => c.Type == "id").Value);
+            var vuid = claims.First(c => c.Type == "vuid").Value;
+
+            return await fun(new User() { Id = userid, Vuid = vuid });
         }
     }
 }
