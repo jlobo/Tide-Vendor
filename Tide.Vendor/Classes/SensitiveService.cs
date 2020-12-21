@@ -8,7 +8,8 @@ namespace Tide.Vendor.Classes {
     public class SensitiveService {
         public async Task<Sensitive> Get(int id) {
             using (var db = new VendorContext()) {
-                return await db.Sensitives.FirstOrDefaultAsync(itm => itm.UserId == id);
+                return await db.Sensitives.AsNoTracking()
+                    .FirstOrDefaultAsync(itm => itm.UserId == id);
             }
         }
 

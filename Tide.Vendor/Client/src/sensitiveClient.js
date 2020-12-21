@@ -1,10 +1,14 @@
 import request from "superagent";
 
-/** @typedef {{ UserId: number; DLN: string; TFN: string; Salary: string; Religion: string; PoliticalParty: string;  }} Sensitive*/
+/** @typedef {{ userId: number;dln: string;tfn: string;salary: string;religion: string;politicalParty: string; }} Sensitive*/
 
 export class SensitiveClient {
+    /**
+     * @param {string} url 
+     * @param {string} jwt 
+     */
     constructor(url, jwt) {
-        this.path = `${url}/tide/sensitive`
+        this.path = `${url}/sensitive`
         this.jwt = jwt;
     }
 
@@ -23,12 +27,13 @@ export class SensitiveClient {
         }
     }
 
-    /** @param {Sensitive} data */
-    /** @returns {Promise} */
+    /**
+     * @param {Sensitive} data
+     * @returns {Promise}
+     **/
     async update(data) {
         try {
-            await request.post(this.path).set("Authorization", this.jwt)
-                .send(data).set("Authorization", this.jwt);
+            await request.post(this.path).set("Authorization", this.jwt).send(data);
         } catch (error) {
             console.log(error);
         }
