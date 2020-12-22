@@ -53,7 +53,8 @@ export default {
     assembleOrks() {
       var orks = [];
       for (let i = 0; i < 5; i++) {
-        orks.push({
+        orks.push(`https://dork${i + 1}.azurewebsites.net`);
+        /*orks.push({
           id: i,
           //url: `https://pdork${i + 1}.azurewebsites.net`,
           url: `https://dork${i + 1}.azurewebsites.net`,
@@ -61,7 +62,7 @@ export default {
           // url: `http://localhost:500${i + 1}`,
           cmk: false,
           cvk: false,
-        });
+        });*/
       }
       return orks;
     },
