@@ -52,8 +52,8 @@ export default {
   methods: {
     assembleOrks() {
       var orks = [];
-      for (let i = 0; i < 5; i++) {
-        orks.push(`https://dork${i + 1}.azurewebsites.net`);
+      for (let i = 0; i < 20; i++) {
+        orks.push(`https://pdork${i + 1}.azurewebsites.net`);
         /*orks.push({
           id: i,
           //url: `https://pdork${i + 1}.azurewebsites.net`,
